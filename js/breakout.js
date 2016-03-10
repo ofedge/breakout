@@ -33,6 +33,9 @@ var brickOffsetLeft = 30;
 // 分数
 var score = 0;
 
+// 玩家生命
+var lives = 3;
+
 // 将砖块信息放在一个二维数组里
 var bricks = [];
 for(c = 0; c < brickColumnCount; c++) {
@@ -86,6 +89,7 @@ function draw() {
 	drawBricks();
 	drawPaddle();
 	drawScore();
+	drawLives();
 	collisionDetection();
 	if(x + dx > canvas.width - ballRadius || x + dx < ballRadius){
 		dx = -dx;
@@ -96,8 +100,17 @@ function draw() {
 		if(x > paddleX && x < paddleX + paddleWidth) {
 			dy = -dy;
 		} else {
-			alert('GAME OVER');
-			document.location.reload();
+			lives--;
+			if (!lives){
+				alert('GAME OVER!');
+				document.location.reload();
+			} else {
+				x = canvas.width / 2;
+				y = canvas.height - 30;
+				dx = 2;
+				dy = -2;
+				paddleX = (canvas.width - paddleWidth) / 2;
+			}
 		}
 	}
 	if (rightPressed && paddleX < canvas.width - paddleWidth) {
@@ -158,6 +171,13 @@ function drawScore() {
 	ctx.fillText("Score: " + score, 8, 20);
 }
 
+// 绘制玩家生命信息
+function drawLives() {
+	ctx.font = '16px Arial';
+	ctx.fillStyle = '#0095DD';
+	ctx.fillText('Lives: ' + lives, canvas.width - 65, 20);
+}
+
 // 鼠标移动监听
 document.addEventListener("mousemove", mouseMoveHandler, false);
 
@@ -169,3 +189,5 @@ function mouseMoveHandler(e){
 }
 
 setInterval(draw, 10);
+//draw();
+//requestAnimationFrame(draw);
