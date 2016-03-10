@@ -30,6 +30,9 @@ var brickPadding = 10;
 var brickOffsetTop = 30;
 var brickOffsetLeft = 30;
 
+// 分数
+var score = 0;
+
 // 将砖块信息放在一个二维数组里
 var bricks = [];
 for(c = 0; c < brickColumnCount; c++) {
@@ -82,6 +85,7 @@ function draw() {
 	drawBall();
 	drawBricks();
 	drawPaddle();
+	drawScore();
 	collisionDetection();
 	if(x + dx > canvas.width - ballRadius || x + dx < ballRadius){
 		dx = -dx;
@@ -136,10 +140,22 @@ function collisionDetection(){
 				if (x > b.x && x < b.x + brickWidth && y > b.y && y < b.y + brickHeight) {
 					dy = -dy;
 					b.status = 0;
+					score++;
+					if (score == brickRowCount * brickColumnCount) {
+						alert("YOU WIN, CONGRATULATIONS!");
+						document.location.reload();
+					}
 				}
 			}
 		}
 	}
+}
+
+// 绘制分数
+function drawScore() {
+	ctx.font = "16px Arial";
+	ctx.fillStyle = "#0095DD";
+	ctx.fillText("Score: " + score, 8, 20);
 }
 
 setInterval(draw, 10);
