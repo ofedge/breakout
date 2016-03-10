@@ -5,7 +5,7 @@ var ctx = canvas.getContext("2d");
 var x = canvas.width / 2;
 var y = canvas.height - 30;
 
-// 每次移动像素
+// 小球每次移动像素
 var dx = 2;
 var dy = -2;
 
@@ -156,6 +156,16 @@ function drawScore() {
 	ctx.font = "16px Arial";
 	ctx.fillStyle = "#0095DD";
 	ctx.fillText("Score: " + score, 8, 20);
+}
+
+// 鼠标移动监听
+document.addEventListener("mousemove", mouseMoveHandler, false);
+
+function mouseMoveHandler(e){
+	var relativeX = e.clientX - canvas.offsetLeft;
+	if (relativeX > 0 && relativeX < canvas.width) {
+		paddleX = relativeX - paddleWidth / 2;
+	}
 }
 
 setInterval(draw, 10);
