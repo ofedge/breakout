@@ -6,10 +6,16 @@
 <style>
   *{ padding: 0; margin: 0 }
   canvas { background: #eee; display: block; margin: 0 auto; }
+  .control { width: 480px; height: 320px; margin: 20px auto; }
 </style>
 </head>
 <body>
   <canvas id="myCanvas" width="480" height="320"></canvas>
+  <div class="control" width="480" height="320">
+    <a href="#">开始</a>&nbsp;|&nbsp;
+    <a href="#">暂停</a>&nbsp;|&nbsp;
+    <a href="#">重置</a>
+  </div>
   <script src="breakout.js"></script>
 </body>
 </html>

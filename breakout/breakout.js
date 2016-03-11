@@ -36,6 +36,9 @@ var score = 0;
 // 玩家生命
 var lives = 3;
 
+// 游戏是否结束
+var gameEnd = false;
+
 // 将砖块信息放在一个二维数组里
 var bricks = [];
 for(c = 0; c < brickColumnCount; c++) {
@@ -102,8 +105,8 @@ function draw() {
 		} else {
 			lives--;
 			if (!lives){
-				alert('GAME OVER!');
-				document.location.reload();
+				gameEnd = true;
+				drawResult('GAME OVER!');
 			} else {
 				x = canvas.width / 2;
 				y = canvas.height - 30;
@@ -155,8 +158,8 @@ function collisionDetection(){
 					b.status = 0;
 					score++;
 					if (score == brickRowCount * brickColumnCount) {
-						alert("YOU WIN, CONGRATULATIONS!");
-						document.location.reload();
+						gameEnd = true;
+						drawResult("YOU WIN, CONGRATULATIONS!");
 					}
 				}
 			}
@@ -178,16 +181,39 @@ function drawLives() {
 	ctx.fillText('Lives: ' + lives, canvas.width - 65, 20);
 }
 
+// 绘制游戏结果
+function drawResult(msg) {
+	clearInterval(interval);
+	ctx.font = '16px Arial';
+	ctx.fillStyle = '#0095DD';
+	ctx.fillText(msg, canvas.width / 2 -65, canvas.height / 2 - 30);
+}
+
 // 鼠标移动监听
 document.addEventListener("mousemove", mouseMoveHandler, false);
 
 function mouseMoveHandler(e){
 	var relativeX = e.clientX - canvas.offsetLeft;
-	if (relativeX > 0 && relativeX < canvas.width) {
+	var relativeY = e.clientY - canvas.offsetTop;
+	if (relativeX > 0 && relativeX < canvas.width && relativeY > 0 && relativeY < canvas.height) {
 		paddleX = relativeX - paddleWidth / 2;
 	}
 }
 
-setInterval(draw, 10);
+draw();
+
+document.getElementsByTagName('a')[0].onclick = function(e){
+	if (!gameEnd)
+		interval = setInterval(draw, 10);
+}
+
+document.getElementsByTagName('a')[1].onclick = function(e){
+	if (!gameEnd)
+		clearInterval(interval);
+}
+
+document.getElementsByTagName('a')[2].onclick = function(e){
+	document.location.reload();
+}
 //draw();
 //requestAnimationFrame(draw);
