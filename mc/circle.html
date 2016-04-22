@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<title>mc</title>
+<style>
+* { margin: 0;padding: 0}
+canvas { background-color:#eee;display:block;margin:20px auto }
+#select { display:block;width:600px;margin:10px auto }
+</style>
+</head>
+<body>
+<canvas id="myCanVas" width="600" height="600"></canvas>
+<div id="select">
+    <label for="divide">选择分割成多少份</label>
+    <select id="divide">
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="15">15</option>
+        <option value="20">20</option>
+        <option value="25">25</option>
+        <option value="30">30</option>
+        <option value="35">35</option>
+        <option value="40">40</option>
+        <option value="45">45</option>
+        <option value="50">50</option>
+    </select>
+</div>
+<script src="mc.js"></script>
+</body>
+</html>
