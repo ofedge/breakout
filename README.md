@@ -1,3 +1,4 @@
-breakout: ´ò×©¿éÓÎÏ·
+breakout: æ‰“ç –å—æ¸¸æˆ
 mc: ...
-simple_canvas_game: ¼òµ¥µÄcanvasÓÎÏ·
+simple_canvas_game: ç®€å•çš„canvasæ¸¸æˆ
+clock.html: canvasæ—¶é’Ÿ
