@@ -5,7 +5,7 @@
     <title>clock</title>
   </head>
   <body>
-    <canvas id="myCanvas" width="300" height="300" style="background-color:#f1f19b">Your borwser doesn't support canvas.</canvas>
+    <canvas id="myCanvas" width="300" height="300" style="background-color:#ffffdd;border-radius:10px;">Your borwser doesn't support canvas.</canvas>
     <script>
     var radius = 100; // 半径
     var center = {'x': 150, 'y': 150} // 中心点
@@ -53,6 +53,12 @@
         var hourEnd = getNewPoint(hourLen, hourToAngel(hour));
         ctx.lineTo(hourEnd['x'], hourEnd['y']);
         ctx.stroke();
+        
+        // 绘制AM, PM
+        ctx.font = '20px Georgia';
+        var amp = hour > 12 ? 'PM' : 'AM';
+        ctx.strokeText(amp, 10, 30);
+        
         // 绘制分针
         var minute = now.getMinutes();
         ctx.beginPath();
