@@ -1,0 +1,67 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Consolas', 'Monaco', 'Bitstream Vera Sans Mono', monospace
+}
+.container {
+    width: 1000px;
+    height: 800px;
+    background-color: #1f1000;
+    position: relative;
+    margin: 20px auto;
+    color: #ffffff;
+}
+#resetCanvas{
+    position: absolute;
+    top: 325px;
+    left: 75px;
+    background-color: transparent;
+    cursor: pointer;
+    border-radius: 50px;
+}
+#myCanvas {
+    background-color: transparent;
+    position: absolute;
+    right: 175px;
+    top: 175px;
+    transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+}
+.table {
+    width: 750px;
+    height: 750px;
+    background-color: transparent;
+    position: absolute;
+    right: 0;
+}
+table {
+    border-collapse: collapse;
+    position: absolute;
+    left: 125px;
+    top: 125px;
+    transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+}
+img {
+    cursor: pointer;
+    transform: rotate(315deg);
+    -ms-transform: rotate(315deg);
+    -webkit-transform: rotate(315deg);
+    -o-transform: rotate(315deg);
+    -moz-transform: rotate(315deg);
+}
+.table table tr td {
+    text-align: center;
+    width: 100px;
+    height: 100px;
+}
+.footer {
+    position: absolute;
+    bottom: 0;
+}

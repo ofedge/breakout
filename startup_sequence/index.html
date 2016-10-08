@@ -5,75 +5,7 @@
 <meta name="keywords" content="魔兽世界,守望者地库,启动序列,World Of Warcraft,Vault of The Wardens,Startup Sequence">
 <meta charset="UTF-8">
 <title>Vault of The Wardens: Startup Sequence</title>
-<style>
-* {
-    margin: 0;
-    padding: 0;
-    font-family: 'Consolas', 'Monaco', 'Bitstream Vera Sans Mono', monospace
-}
-.container {
-    width: 1000px;
-    height: 800px;
-    background-color: #1f1000;
-    position: relative;
-    margin: 20px auto;
-    color: #ffffff;
-}
-#resetCanvas{
-    position: absolute;
-    top: 325px;
-    left: 75px;
-    background-color: transparent;
-    cursor: pointer;
-    border-radius: 50px;
-}
-#myCanvas {
-    background-color: transparent;
-    position: absolute;
-    right: 175px;
-    top: 175px;
-    transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    -webkit-transform: rotate(45deg);
-    -o-transform: rotate(45deg);
-    -moz-transform: rotate(45deg);
-}
-.table {
-    width: 750px;
-    height: 750px;
-    background-color: transparent;
-    position: absolute;
-    right: 0;
-}
-table {
-    border-collapse: collapse;
-    position: absolute;
-    left: 125px;
-    top: 125px;
-    transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    -webkit-transform: rotate(45deg);
-    -o-transform: rotate(45deg);
-    -moz-transform: rotate(45deg);
-}
-img {
-    cursor: pointer;
-    transform: rotate(315deg);
-    -ms-transform: rotate(315deg);
-    -webkit-transform: rotate(315deg);
-    -o-transform: rotate(315deg);
-    -moz-transform: rotate(315deg);
-}
-.table table tr td {
-    text-align: center;
-    width: 100px;
-    height: 100px;
-}
-.footer {
-    position: absolute;
-    bottom: 0;
-}
-</style>
+<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
   <div class="container">
@@ -89,123 +21,12 @@ img {
       </table>
     </div>
     <div class="footer">
-        <p>备份怕丢: <a href="https://github.com/ofedge/canvas/tree/gh-pages/startup_sequence">github</a>. 别问我怎么玩, 刚进去时候我跟你们一样一脸懵逼</p>
-    </div>>
+        <p><a href="https://github.com/ofedge/canvas/tree/gh-pages/startup_sequence">github</a></p>
+    </div>
   </div>
 <script src="http://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
-<script>
-$('td').append('<img src="huaji.png">');
-for (var i = 0; i < $('img').size(); i++){
-    $('img').eq(i).attr('data', i).css('width', '0px');
-}
-
-function drawReset(){
-    var ctx = document.getElementById('resetCanvas').getContext('2d');
-    ctx.beginPath();
-    ctx.arc(50, 50, 50, 0, 2 * Math.PI, true);
-    ctx.closePath();
-    ctx.fillStyle='#8ac007';
-    ctx.fill();
-    ctx.fillStyle='#ffffff';
-    ctx.font = '30px Consolas';
-    ctx.fillText('Reset', 10, 60);
-}
-drawReset();
-
-function drawTable(){
-    var ctx = document.getElementById('myCanvas').getContext('2d');
-    ctx.beginPath();
-    for(var i = 0; i < 5; i++){
-        ctx.moveTo(0, i * 100 + 2);
-        ctx.lineTo(400, i* 100 + 2);
-    }
-    for(var j = 0; j < 5; j++){
-        ctx.moveTo(j * 100 + 2, 0);
-        ctx.lineTo(j * 100 + 2, 400);
-    }
-    ctx.closePath();
-    ctx.lineWidth=4;
-    ctx.strokeStyle = '#8ac007'; 
-    ctx.stroke();
-}
-drawTable();
-
-function init(){
-    for (var i = 0; i < 25; i++){
-        $('img[data=' + i + ']').css('width', '0px');
-    }
-    var showPic = [0, 4, 7, 11, 12, 13, 17, 20, 24];
-    for (var j = 0; j < showPic.length; j++){
-        $('img[data=' + showPic[j] + ']').css('width', '64px');
-    }
-} 
-init();
-
-function roundNum(n){
-    if (n >= 0 && n < 25){
-        return n;
-    } else if (n < 0){
-        return roundNum(25 + n);
-    } else {
-        return roundNum(n - 25);
-    }
-}
-
-function showOrHide(value){
-    var $this = $('img[data=' + roundNum(value) + ']');
-    if ($this.css('width') == '64px') {
-        $this.animate({width: '0'}, 200);
-    } else if ($this.css('width') == '0px') {
-        $this.animate({width: '64px'}, 200);
-    }
-}
-
-function check(){
-    for(var i = 0; i < 25; i++){
-        if (i == 12){
-            if ($('img[data=' + i + ']').css('width') != '64px'){
-                return false;
-            }
-        } else {
-            if ($('img[data=' + i + ']').css('width') != '0px'){
-                return false;
-            }
-        }
-    }
-    return true;
-}
-
-function success(){
-    var ctx = document.getElementById('resetCanvas').getContext('2d');
-    ctx.clearRect(0, 0, 100, 100);
-    var successImg = new Image();
-    successImg.src='huaji.png';
-    ctx.drawImage(successImg, 20, 20);
-}
-
-$('#resetCanvas').on('click', function(){
-    init();
-});
-$('img').on('click', function(){
-    if ($(this).css('width') == '0px')
-        return;
-    var value = $(this).attr('data');
-    var leftValue = parseInt(value) % 5 == 0 ? parseInt(value) + 4 : parseInt(value) - 1; 
-    var rightValue = (parseInt(value) + 1) % 5 == 0 ? parseInt(value) - 4 : parseInt(value) + 1;
-    var upValue = parseInt(value) - 5;
-    var downValue = parseInt(value) + 5;
-    console.log('click: ' + value + ', left: ' + leftValue + ', right: ' + rightValue + ', up: ' + roundNum(upValue) + ', down: ' + roundNum(downValue));
-    if (check()){
-        showOrHide(value);
-        success();
-    } else {
-        showOrHide(value);
-        showOrHide(leftValue);
-        showOrHide(rightValue);
-        showOrHide(upValue);
-        showOrHide(downValue);
-    }
-});
-</script>
+<script src="common.js"></script>
+<script src="script.js"></script>
+<script src="addons.js"></script>
 </body>
 <html>
