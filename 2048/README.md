@@ -1,5 +1,5 @@
 ### 2048
 
-使用canvas做的2048游戏
+浣跨敤canvas鍋氱殑2048娓告垙
 
 http://www.vicitf.com/canvas/2048/
