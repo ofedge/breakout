@@ -74,4 +74,4 @@ var script = {
         $('img').off('click');
     }
 }
-// script.init();
+script.init();
