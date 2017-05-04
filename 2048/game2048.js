@@ -7,11 +7,11 @@ function Game2048(gameId){
     this.grid = new Grid(this);
     this.header = new HeaderBoard(this);
     this.drawNow();
-    this.grid.checkMove();
     return this;
 }
 Game2048.prototype.n = 4;
 Game2048.prototype.spaceProportion = 0.15;
+Game2048.prototype.moving = false;
 Game2048.prototype.floor = {
     bgColor: '#bbada0',
     shadowColo: '#cdc1b4'
@@ -43,35 +43,38 @@ Game2048.prototype.drawNow = function() {
 Game2048.prototype.destroy = function() {
     this.grid.initGrid();
 }
+Game2048.prototype.moveEnd = function() {
+    this.grid.endMove();
+    this.grid.randomNew();
+    this.drawNow();
+    this.grid.checkMove();
+    this.moving = false;
+}
 Game2048.prototype.moveLeft = function() {
-    if (this.grid.moveLeft()) {
-        this.grid.endMove('left');
-        this.grid.randomNew();
-        this.drawNow();
-        this.grid.checkMove();
+    if (this.grid.moveLeft() && !this.moving) {
+        this.moving = true;
+        this.grid.animation.intervalId = setInterval('g.grid.animationMove()', this.grid.animation.intervalTime);
+        setTimeout('g.moveEnd()', this.grid.animation.time + 50);
     }
 }
 Game2048.prototype.moveRight = function() {
-    if (this.grid.moveRight()){
-        this.grid.endMove('right');
-        this.grid.randomNew();
-        this.drawNow();
-        this.grid.checkMove();
+    if (this.grid.moveRight() && !this.moving){
+        this.moving = true;
+        this.grid.animation.intervalId = setInterval('g.grid.animationMove()', this.grid.animation.intervalTime);
+        setTimeout('g.moveEnd()', this.grid.animation.time + 50);
     }
 }
 Game2048.prototype.moveUp = function() {
-    if (this.grid.moveUp()) {
-        this.grid.endMove('up');
-        this.grid.randomNew();
-        this.drawNow();
-        this.grid.checkMove();
+    if (this.grid.moveUp() && !this.moving) {
+        this.moving = true;
+        this.grid.animation.intervalId = setInterval('g.grid.animationMove()', this.grid.animation.intervalTime);
+        setTimeout('g.moveEnd()', this.grid.animation.time + 50);
     }
 }
 Game2048.prototype.moveDown = function() {
-    if (this.grid.moveDown()) {
-        this.grid.endMove('down');
-        this.grid.randomNew();
-        this.drawNow();
-        this.grid.checkMove();
+    if (this.grid.moveDown() && !this.moving) {
+        this.moving = true;
+        this.grid.animation.intervalId = setInterval('g.grid.animationMove()', this.grid.animation.intervalTime);
+        setTimeout('g.moveEnd()', this.grid.animation.time + 50);
     }
 }

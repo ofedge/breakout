@@ -103,6 +103,58 @@ Grid.prototype.drawGrid = function(){
         }
     }
 }
+Grid.prototype.animation = {
+    time: 100,
+    intervalTime: 10,
+    i: 0,
+    intervalId: undefined
+}
+Grid.prototype.animationMove = function(){
+    this.ctx.clearRect(0, 0, this.width, this.game.height + this.game.header.height);
+    this.game.drawFloor();
+    this.game.header.drawHeader();
+    var maxFrame = this.animation.time / this.animation.intervalTime;
+    var step = (this.width + this.game.spaceWidth) / maxFrame;
+    this.animation.i++;
+    for (var x = 0; x < this.game.n; x++) {
+        for (var y = 0; y < this.game. n; y++) {
+            if(this.grids[x][y].n != 0) {
+                var startX = (x + 1) * this.game.spaceWidth + x * this.width;
+                var startY = (y + 1) * this.game.spaceWidth + y * this.width + this.game.header.height;
+                if (this.grids[x][y].left) {
+                    startX = startX - this.animation.i * step * this.grids[x][y].left.step;
+                }
+                if (this.grids[x][y].right) {
+                    startX = startX + this.animation.i * step * this.grids[x][y].right.step;
+                }
+                if (this.grids[x][y].up) {
+                    startY = startY - this.animation.i * step * this.grids[x][y].up.step;
+                }
+                if (this.grids[x][y].down) {
+                    startY = startY + this.animation.i * step * this.grids[x][y].down.step;
+                }
+                this.ctx.beginPath();
+                this.ctx.rect(startX, startY, this.width, this.width);
+                this.ctx.fillStyle = this.colorMap[this.grids[x][y].n];
+                this.ctx.fill();
+                this.ctx.font = this.width / 3 + 'px Verdana';
+                if(this.grids[x][y].n < 10){
+                    this.ctx.fillStyle = this.colorMap.darker;
+                } else {
+                    this.ctx.fillStyle = this.colorMap.lighter;
+                }
+                var offsetX = (this.width - this.ctx.measureText(this.grids[x][y].n).width) / 2;
+                var offsetY = this.width / 1.7;
+                this.ctx.fillText(this.grids[x][y].n, startX + offsetX, startY + offsetY);
+                this.ctx.closePath();
+            }
+        }
+    }
+    if (this.animation.i >= maxFrame) {
+        clearInterval(this.animation.intervalId);
+        this.animation.i = 0;
+    }
+}
 Grid.prototype.drawResult = function() {
     var move = this.gridStatus.move;
     if (this.gridStatus.win && !this.gridStatus.showedWin) {
@@ -228,6 +280,7 @@ Grid.prototype.moveLeft = function() {
             }
         }
     }
+    this.gridStatus.lastMove = 'left'
     return moved;
 }
 Grid.prototype.moveRight = function() {
@@ -274,6 +327,7 @@ Grid.prototype.moveRight = function() {
             }
         }
     }
+    this.gridStatus.lastMove = 'right'
     return moved;
 }
 Grid.prototype.moveUp = function() {
@@ -319,6 +373,7 @@ Grid.prototype.moveUp = function() {
             }
         }
     }
+    this.gridStatus.lastMove = 'up'
     return moved;
 }
 Grid.prototype.moveDown = function() {
@@ -364,9 +419,11 @@ Grid.prototype.moveDown = function() {
             }
         }
     }
+    this.gridStatus.lastMove = 'down'
     return moved;
 }
-Grid.prototype.endMove = function(direction) {
+Grid.prototype.endMove = function() {
+    var direction = this.gridStatus.lastMove;
     var tmpGrids = [];
     for (var i = 0; i < this.grids.length; i++) {
         var tmpRow = [];
