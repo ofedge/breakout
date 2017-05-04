@@ -51,28 +51,28 @@ Game2048.prototype.moveEnd = function() {
     this.moving = false;
 }
 Game2048.prototype.moveLeft = function() {
-    if (this.grid.moveLeft() && !this.moving) {
+    if (!this.moving && this.grid.moveLeft()) {
         this.moving = true;
         this.grid.animation.intervalId = setInterval('g.grid.animationMove()', this.grid.animation.intervalTime);
         setTimeout('g.moveEnd()', this.grid.animation.time + 50);
     }
 }
 Game2048.prototype.moveRight = function() {
-    if (this.grid.moveRight() && !this.moving){
+    if (!this.moving && this.grid.moveRight()){
         this.moving = true;
         this.grid.animation.intervalId = setInterval('g.grid.animationMove()', this.grid.animation.intervalTime);
         setTimeout('g.moveEnd()', this.grid.animation.time + 50);
     }
 }
 Game2048.prototype.moveUp = function() {
-    if (this.grid.moveUp() && !this.moving) {
+    if (!this.moving && this.grid.moveUp()) {
         this.moving = true;
         this.grid.animation.intervalId = setInterval('g.grid.animationMove()', this.grid.animation.intervalTime);
         setTimeout('g.moveEnd()', this.grid.animation.time + 50);
     }
 }
 Game2048.prototype.moveDown = function() {
-    if (this.grid.moveDown() && !this.moving) {
+    if (!this.moving && this.grid.moveDown()) {
         this.moving = true;
         this.grid.animation.intervalId = setInterval('g.grid.animationMove()', this.grid.animation.intervalTime);
         setTimeout('g.moveEnd()', this.grid.animation.time + 50);
