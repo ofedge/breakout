@@ -9,3 +9,5 @@ clock.html: canvas时钟
 startup_sequence: 守望者地库: 启动序列 模拟
 
 2048: 2048游戏
+
+tetris: 俄罗斯方块
