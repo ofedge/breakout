@@ -48,7 +48,8 @@ Tetris.prototype.key = {
 }
 Tetris.prototype.interval = {
     time: 500,
-    rushTime: 200,
+    rushTime: 100,
+    moveRush: 200,
     down: undefined,
     left: undefined,
     right: undefined

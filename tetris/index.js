@@ -33,6 +33,12 @@ document.addEventListener('keyup', function(e){
             break;
         case 32:
             if (t.status.over) {
+                t.storage.clear();
+                t = new Tetris('game');
+                t.move();
+                t.interval.down = setInterval('t.move()', t.interval.time);
+                t.status.running = true;
+                t.status.over = false;
                 return;
             }
             if (t.status.running) {
@@ -52,14 +58,14 @@ document.addEventListener('keydown', function(e){
         case 37:
             if (t.status.running && !t.status.moving) {
                 t.moveLeft();
-                t.interval.left = setInterval('t.moveLeft()', t.interval.rushTime);
+                t.interval.left = setInterval('t.moveLeft()', t.interval.moveRush);
                 t.status.moving = true;
             }
             break;
         case 39:
             if (t.status.running && !t.status.moving) {
                 t.moveRight();
-                t.interval.right = setInterval('t.moveRight()', t.interval.rushTime);
+                t.interval.right = setInterval('t.moveRight()', t.interval.moveRush);
                 t.status.moving = true;
             }
             break;
